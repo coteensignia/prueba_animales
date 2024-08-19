@@ -1,32 +1,30 @@
-// Importamos las clases de animales desde los módulos correspondientes
+// Importacion
 import { Aguila } from "./classes/Aguila.mjs";
 import { Leon } from "./classes/Leon.mjs";
 import { Lobo } from "./classes/Lobo.mjs";
 import { Oso } from "./classes/Oso.mjs";
 import { Serpiente } from "./classes/Serpiente.mjs";
-// Importamos la función autoejecutable desde el módulo IIFE
 import { iife as funcionAutoejecudable } from "./modulo/iife.mjs";
 
-// Definimos un objeto para instanciar los diferentes tipos de animales
+// Objeto
 const instanciadorAnimales = { Aguila, Leon, Lobo, Oso, Serpiente }
 
-// Manejador de eventos para el botón de registro
+// Botón de registro
 document.getElementById('btnRegistrar').addEventListener('click', async () => {
-  // Referencias a los elementos del formulario
   const nombreHTML = document.getElementById('animal');
   const edadHTML = document.getElementById('edad');
   const comentariosHTML = document.getElementById('comentarios');
 
-  // Obtenemos los datos del animal desde el archivo JSON
+  // Datos del animal desde JSON
   const { imagen, sonido } = await funcionAutoejecudable.obtenerDataJson(nombreHTML.value);
   
-  // Validamos que todos los campos del formulario estén llenos
+  // Validacion
   if (!nombreHTML.value || !edadHTML.value || !comentariosHTML.value) {
     alert('Por favor, complete todos los campos.');
     return;
   }
   
-  // Creamos una nueva instancia del animal usando la clase correspondiente
+  // nueva instancia
   let animal = new instanciadorAnimales[nombreHTML.value](
     nombreHTML.value, 
     edadHTML.value,
@@ -35,34 +33,34 @@ document.getElementById('btnRegistrar').addEventListener('click', async () => {
     sonido
   );
 
-  // Añadimos el nuevo animal a la lista de animales
+  // Añadir
   funcionAutoejecudable.addAnimal(animal);
   
-  // Actualizamos el contenedor con la información de los animales
+  // Actualizar
   funcionAutoejecudable.cardsAnimal(funcionAutoejecudable.animalsArray, 'Animales');
 
-  // Limpiamos el formulario después de agregar el animal
+  // Limpiaar
   funcionAutoejecudable.limpiar();
 });
 
-// Manejador de eventos para cambios en la selección de animal
+// Eventos
 document.getElementById('animal').addEventListener("change", async (event) => {
-  // Obtenemos la información del animal seleccionado
+  // información del animal seleccionado
   const { imagen, sonido } = await funcionAutoejecudable.obtenerDataJson(event.target.value);
   const nombreAnimal = event.target.value;
 
-  // Referencia al contenedor donde se mostrará la imagen del animal
+  // imagen del animal preview
   const preview = document.getElementById('preview');
   
-  // Limpiamos el contenedor antes de añadir la nueva imagen
+  // Limpiar
   preview.innerHTML = '';
   
-  // Creamos un nuevo elemento de imagen
+  // Nuevo elemento de imagen
   const img = document.createElement('img');
-  img.src = `assets/imgs/${imagen}`; // Establecemos la ruta de la imagen
-  img.className = "img-fluid rounded"; // Aplicamos clases de estilo
-  img.alt = nombreAnimal; // Definimos el atributo alt
+  img.src = `assets/imgs/${imagen}`; 
+  img.className = "img-fluid rounded"; 
+  img.alt = nombreAnimal;
   
-  // Añadimos la imagen al contenedor
+  // imagen al contenedor
   preview.appendChild(img);
 });

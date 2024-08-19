@@ -1,32 +1,29 @@
-// Función autoejecutable que encapsula la lógica de manejo de animales
+
 const iife = (() => {
-  // Arreglo para almacenar las instancias de animales
+  // Arreglo 
   const animalsArray = [];
 
-  // Función asíncrona para obtener datos de animales desde un archivo JSON
+  // Función  asincronica para optener de json
   async function obtenerDataJson(nombre) {
     try {
-      // Hacemos una solicitud para obtener el archivo JSON
       const response = await fetch("animales.json");
-      // Convertimos la respuesta a JSON
       const data = await response.json();
-      // Buscamos el animal que coincide con el nombre dado
       const animalData = data.animales.find(animal => animal.name === nombre);
       return animalData;
     } catch (error) {
-      // Manejo de errores en caso de falla en la solicitud
+   
       console.error('Error al obtener la imagen:', error);
     }
   }
 
-  // Función para añadir un nuevo animal al arreglo
+  // añadir un nuevo animal al arreglo
   function addAnimal(animal) {
     animalsArray.push(animal);
   }
 
-  // Función para generar y mostrar tarjetas de animales en la interfaz
+  // Función para generar y mostrar 
   function cardsAnimal(animales, id) {
-    // Creamos las tarjetas HTML para cada animal
+    // tarjetas html 
     let cartas = animales.map(animal => {
       return `
       <div class="card col-md-4">
@@ -45,24 +42,24 @@ const iife = (() => {
       `;
     }).join('');
 
-    // Insertamos las tarjetas generadas en el contenedor con el ID dado
+    // Insertar tarjeta
     document.getElementById(id).innerHTML = cartas;
   }
 
-  // Función para limpiar el formulario y el contenedor de vista previa
+  // limpiar el formulario 
   let limpiar = () => {
-    // Limpiamos el contenedor de vista previa si tiene una imagen
+
     if (document.getElementById('preview').querySelector('img')) {
       document.getElementById('preview').innerHTML = '';
     }
 
-    // Restauramos los valores predeterminados del formulario
+    // restaurar valores
     document.getElementById('animal').value = document.getElementById('animal').defaultValue;
     document.getElementById('edad').value = document.getElementById('edad').defaultValue;
     document.getElementById('comentarios').value = document.getElementById('comentarios').defaultValue;
   }
 
-  // Retornamos un objeto con las funciones públicas de este módulo
+  
   return {
     obtenerDataJson,
     cardsAnimal,
@@ -72,5 +69,5 @@ const iife = (() => {
   };
 })();
 
-// Exportamos el módulo autoejecutable para su uso en otros archivos
+
 export { iife };
