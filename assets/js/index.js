@@ -58,7 +58,11 @@ document.getElementById('animal').addEventListener("change", async (event) => {
   // Nuevo elemento de imagen
   const img = document.createElement('img');
   img.src = `assets/imgs/${imagen}`; 
-  img.className = "img-fluid rounded"; 
+  img.className = " rounded";
+  img.style.height = "250px"; 
+  img.style.width = "100%";
+  img.style.objectFit = "cover";
+  img.style.objectPosition = "top";
   img.alt = nombreAnimal;
   
   // imagen al contenedor
